@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Login Account</title>
+    <link rel="stylesheet" href="../stylesheet/createpost.css">
+  </head>
+  <body>
+    <div class="container">
+      <h1>Login Your account</h1>
+      <form action="/login" method="POST">
+        <label for="user">UserName:</label>
+        <input type="text" id="user" name="user" required />
+        <label for="password">Password:</label>
+        <input type="password" id="password" name="password" required />
+        <button type="submit">Create Post</button>
+      </form>
+      <% if(err == 'user not found'){ %>
+      <div class="error" style="color: red">
+        <p>Wrong Details Or Account Not Found</p>
+        <a href="/create/user">Create Account</a>
+      </div>
+      <%}else if(err){ %>
+        <div class="error" style="color: red">
+            <p><%= err %></p>
+            <a href="/create/user">Create Account</a>
+      <%} %>
+    </div>
+  </body>
+</html>

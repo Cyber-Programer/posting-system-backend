@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Create Account</title>
+    <link rel="stylesheet" href="../stylesheet/createpost.css">
+  </head>
+  <body>
+    <div class="container">
+      <h1>Create New Post</h1>
+      <form action="/create/post" method="POST">
+        <label for="Title">Post Title:</label>
+        <input type="text" id="title" name="title" required />
+        <br />
+        <label for="Content">Post Content:</label>
+        <textarea id="content" name="content" rows="4" cols="50" required></textarea>
+        <br />
+        <label for="url">Image Url:</label>
+        <input type="url" name="img-url" id="img-url" required />
+        <button type="submit">Create Post</button>
+      </form>
+      <% if(err){ %>
+      <div class="error" style="color: red">
+        <p><%= err %></p>
+      </div>
+      <%} %>
+    </div>
+  </body>
+</html>

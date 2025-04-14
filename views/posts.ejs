@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title><%= user %>'s All Posts</title>
+    <style>
+      body {
+        font-family: Arial, sans-serif;
+        background: #f4f4f4;
+        margin: 0;
+        padding: 20px;
+      }
+
+      .container {
+        max-width: 800px;
+        margin: auto;
+      }
+
+      .post-box {
+        background: #fff;
+        padding: 15px;
+        margin-bottom: 20px;
+        border-radius: 8px;
+        box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
+      }
+
+      .post-box h2 {
+        margin: 0 0 10px;
+      }
+
+      .post-box p {
+        margin: 5px 0;
+      }
+
+      .post-box img {
+        max-width: 100%;
+        height: auto;
+        margin: 10px 0;
+        border-radius: 4px;
+      }
+
+      .post-meta {
+        font-size: 0.9em;
+        color: #555;
+        margin-top: 10px;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="container">
+      <% if(postFound){%>
+
+      <h1><%= user %>'s All Posts</h1>
+      <% posts.forEach(post => { %>
+      <div class="post-box">
+        <h2><%= post.title %></h2>
+        <p><%= post.description %></p>
+        <% if (post.image) { %>
+        <img src="<%= post.image %>" alt="Post Image" />
+        <% } %>
+        <p class="post-meta">Likes: <%= post.likes %></p>
+        <p class="post-meta">
+          Date: <%= new Date(post.date).toLocaleString() %>
+        </p>
+      </div>
+      <% }); %> <%}else{%>
+      <h1>No Post Found The User</h1>
+      <%} %>
+    </div>
+  </body>
+</html>
