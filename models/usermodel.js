@@ -1,5 +1,7 @@
 const mongoose = require("mongoose");
-mongoose.connect("mongodb://localhost:27017/posting");
+const dotenv = require('dotenv').config()
+mongoose.connect(process.env.MONGO_URL);
+
 const userSchema = new mongoose.Schema({
   user: {
     type: String,

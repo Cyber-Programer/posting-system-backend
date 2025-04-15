@@ -11,9 +11,15 @@ async function CkTokenValidation(req, res, next) {
   }
 
   try {
-    const decode = jwt.verify(token, "999");
-    const userFound = await userModel.findOne({ _id: decode.token });
-
+    const decode = jwt.verify(token, process.env.JWT_KEY);
+    // const userFound = await userModel.findOne({ _id: decode.token });
+    const userFound = await userModel.findOne({user:decode.data.user})
+    // console.log(userFound)
+    if(!userFound){
+      req.err = 'you need to login again'
+      return next()
+      // return res.redirect('/login',{err:"you need to login"})
+    }
     return res.redirect("/profile");
   } catch (error) {
     req.err = error;

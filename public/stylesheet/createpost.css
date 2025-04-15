@@ -79,3 +79,12 @@ button[type="submit"]:hover{
     color: green;
     margin-bottom: 15px;
 }
+
+nav{
+    display: flex;
+    justify-content: flex-end;
+}
+
+nav a{
+    display: inline-block;
+}

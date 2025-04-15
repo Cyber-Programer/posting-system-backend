@@ -3,7 +3,6 @@ const jwt = require("jsonwebtoken");
 const userModel = require("../models/usermodel");
 const postModel = require("../models/postmodel");
 
-
 Router.get("/create/post", (req, res) => {
   res.render("createpost", { err: false });
 });
@@ -12,15 +11,18 @@ Router.get("/create/post", (req, res) => {
 
 Router.post("/create/post", async (req, res) => {
   const { title, content, image } = req.body;
-  const token = req.cookies.token;
+  const token = req.cookies?.token;
 
   if (!token) {
     return res.render("createpost", { err: "You are not logein" });
   }
 
   try {
-    const decoded = jwt.verify(token, "999").token;
-    const user = await userModel.findById(decoded);
+    const decoded = await jwt.verify(token, process.env.JWT_KEY).data;
+    const user = await userModel.findOne({
+      email: decoded.email,
+      user: decoded.user,
+    });
 
     if (!user) {
       return res.render("createpost", { err: "user not foud" });
@@ -65,6 +67,5 @@ Router.post("/create/post", async (req, res) => {
     return res.render("createpost", { err: error });
   }
 });
-
 
 module.exports = Router;

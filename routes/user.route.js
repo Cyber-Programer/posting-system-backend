@@ -5,6 +5,7 @@ const userModel = require("../models/usermodel");
 const postModel = require("../models/postmodel");
 const { CkTokenValidation } = require("./middle.route");
 
+// GET -- create/user
 Router.get("/create/user", CkTokenValidation, (req, res) => {
   if (req.err) {
     return res.render("createuser", { err: req.err });
@@ -12,10 +13,8 @@ Router.get("/create/user", CkTokenValidation, (req, res) => {
   res.render("createuser", { err: false });
 });
 
-Router.get("/profile", (req, res) => {
-  res.render("profile");
-});
 
+// GET -- /user/allPost
 Router.get("/:user/allPost", async (req, res) => {
   const { user } = req.params;
   const UserAvailable = await userModel.findOne({ user: user });
@@ -27,7 +26,8 @@ Router.get("/:user/allPost", async (req, res) => {
     user: UserAvailable._id.toString(),
   });
   const allPostId = UserAvailable.posts;
-  if (!allPostId && usersPostGroup.post) {
+  console.log(allPostId,usersPostGroup)
+  if (allPostId.length == 0 || usersPostGroup.post == null) {
     return res.render("posts", {
       user,
       postFound: false,
@@ -42,7 +42,9 @@ Router.get("/:user/allPost", async (req, res) => {
 });
 
 // post method
+// ---------------------------------- \\
 
+// POST -- /create/user
 Router.post("/create/user", async (req, res) => {
   const { username, email, password, age } = req.body;
   const newUser = await userModel.create({
@@ -56,7 +58,15 @@ Router.post("/create/user", async (req, res) => {
   if (!newUser) {
     return res.send({ err: true });
   } else {
-    const token = jwt.sign({ token: newUser._id }, "999");
+    const token = jwt.sign(
+      {
+        data: {
+          email: newUser.email,
+          user: newUser.user,
+        }
+      },
+      process.env.JWT_KEY
+    );
     if (token) {
       res.cookie("token", token);
     }

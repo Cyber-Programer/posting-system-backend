@@ -6,6 +6,9 @@
     <title>Login Account</title>
     <link rel="stylesheet" href="../stylesheet/createpost.css">
   </head>
+  <style>
+    
+  </style>
   <body>
     <div class="container">
       <h1>Login Your account</h1>
@@ -14,18 +17,17 @@
         <input type="text" id="user" name="user" required />
         <label for="password">Password:</label>
         <input type="password" id="password" name="password" required />
-        <button type="submit">Create Post</button>
+        <button type="submit">Login</button>
       </form>
       <% if(err == 'user not found'){ %>
       <div class="error" style="color: red">
         <p>Wrong Details Or Account Not Found</p>
-        <a href="/create/user">Create Account</a>
       </div>
       <%}else if(err){ %>
         <div class="error" style="color: red">
             <p><%= err %></p>
-            <a href="/create/user">Create Account</a>
       <%} %>
-    </div>
+            <a style="text-align: center; margin-top: 10px; display: block;" href="/create/user">Create Account</a>
+          </div>
   </body>
 </html>

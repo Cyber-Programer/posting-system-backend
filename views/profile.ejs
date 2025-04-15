@@ -1,13 +1,91 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Profile Page</title>
-</head>
-<body>
-    <div>
-        <h1>Welcome To your profile page</h1>
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>
+      <%= data && data.user ? data.user + "'s Profile" : "Profile Page" %>
+    </title>
+  </head>
+  <style>
+    .body,
+    html {
+      width: 100vw;
+      height: 100vh;
+      background-color: rgb(229, 229, 229);
+    }
+    .container {
+      width: 100%;
+      height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .profile-card {
+      width: fit-content;
+      min-width: 30%;
+      height: fit-content;
+      padding: 5% 10%;
+      background-color: white;
+      border-radius: 10px;
+    }
+
+    .profile-card h3 {
+      font-size: 2rem;
+      font-family: Arial, Helvetica, sans-serif;
+    }
+    h3 span {
+      display: inline-block;
+    }
+    h3 span::after {
+      content: "";
+      display: block;
+      width: 100%;
+      height: 2px;
+      background-color: rgb(198, 95, 44);
+    }
+    .details {
+      display: flex;
+      flex-direction: column;
+      gap: 0;
+      font-family: "Franklin Gothic Medium", "Arial Narrow", Arial, sans-serif;
+    }
+    #details {
+      font-size: large;
+    }
+
+    nav{
+      display: flex;
+      gap: 5%;
+      justify-content: flex-end;
+    }
+
+  </style>
+  <body>
+    <div class="container">
+      <div class="profile-card">
+        <nav>
+          <a href="/create/post">Create New Post</a>
+          <a href="/logout">Logout</a>
+          <a href="/<%= data.user %>/allPost">My Post</a>
+        </nav>
+
+        <h3>
+          Welcome <span><%= data && data.user ? data.user : "User" %></span>
+        </h3>
+        <div class="details">
+          <span id="details"
+            >Email: <%= data && data.email ? data.email : "N/A" %></span
+          ><br />
+          <span id="details"
+            >Age: <%= data && data.age ? data.age : "N/A" %></span
+          ><br />
+          <span id="details"
+            >Total Post: <%= data && data.posts ? data.posts.length : 0 %></span
+          >
+        </div>
+      </div>
     </div>
-</body>
+  </body>
 </html>
